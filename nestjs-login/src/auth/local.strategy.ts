@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 
 /**
  * 本地策略
@@ -12,16 +12,25 @@ import { LoginService } from './login.service';
  * 5. 校验通过后，将用户信息挂载到请求对象上，后续可以在控制器中通过 @Request() 装饰器获取
  */
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
-    constructor(private loginService: LoginService) {
+export class AuthLocalStrategy extends PassportStrategy(Strategy, 'auth-local') {
+    constructor(private authService: AuthService) {
         // 可自定义字段名，默认 username/password
         super({
             usernameField: 'username',
             passwordField: 'password',
         });
     }
-    validate(username: string, password: string) {
+    async validate(username: string, password: string) {
         // 校验逻辑交给service处理，返回校验结果
-        return this.loginService.validateUser(username, password);
+        const user = await this.authService.validateUser(username, password);
+        if (!user) {
+            throw new UnauthorizedException('用户名或密码错误');
+        }
+        const token = this.authService.sign(user);
+        return {
+            strategy: 'auth-local',
+            ...user,
+            ...token,
+        };
     }
 }

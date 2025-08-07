@@ -16,7 +16,7 @@ import { adminInfo } from "src/mock/admin.mock";
  * }
  */
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'v1-jwt') {
     constructor() {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -29,6 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         // 模拟配对数据库
         if (adminInfo.id === payload.id) {
             return {
+                strategy: 'v1-jwt',
                 ...adminInfo,
                 password: undefined, // del password
             };

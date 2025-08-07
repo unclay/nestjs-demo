@@ -1,3 +1,20 @@
+## 目录说明
+
+```
+src
+├── api
+│   ├── v1 单点守卫接口（入门学习）
+│   ├── v2 全局守卫接口（进阶学习）
+├── auth
+│   ├── auth.decorator.ts  # 自定义装饰器：@Public()
+│   ├── auth.module.ts  # 授权模块
+│   ├── auth.service.ts  # 授权服务
+│   ├── global-auth.guard.ts  # 全局守卫：判断是否登录
+│   ├── local.strategy.ts  # 本地策略：账号密码登录
+│   ├── jwt.strategy.ts  # jwt 策略：token 登录
+```
+
+## 其他记录
 ```bash
 # 安装 nestjs 项目
 nest new nestjs-login
