@@ -8,7 +8,13 @@ nest g controller api/login
 # 安装授权依赖，bcrypt 用于密码加密，passport-local 用于授权认证，@nestjs/jwt 用于生成 token，passport-jwt 用于解析 token
 pnpm add @nestjs/passport passport passport-local bcrypt
 pnpm add @nestjs/jwt passport-jwt
-npm add -D @types/passport-local @types/passport-jwt
+pnpm add -D @types/passport-local @types/passport-jwt @@types/bcrypt
+# username：admin
+# password：Aa123456
+# password 加密后：$2b$12$3Rh6f1URfIz8qiIPBqzuGuXsPFj4NnGQ2/eyLiuI07SiPMACf6qme
+
+# web请求头 headers
+# Authorization：Bearer [token]
 ```
 
 <p align="center">
