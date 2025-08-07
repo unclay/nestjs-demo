@@ -1,3 +1,16 @@
+```bash
+# 安装 nestjs 项目
+nest new nestjs-login
+cd nestjs-login
+# 生成登录模块
+nest g module api/login
+nest g controller api/login
+# 安装授权依赖，bcrypt 用于密码加密，passport-local 用于授权认证，@nestjs/jwt 用于生成 token，passport-jwt 用于解析 token
+pnpm add @nestjs/passport passport passport-local bcrypt
+pnpm add @nestjs/jwt passport-jwt
+npm add -D @types/passport-local @types/passport-jwt
+```
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
